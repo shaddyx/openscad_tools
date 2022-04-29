@@ -33,7 +33,7 @@ module truncated_nozzle(nozzleSize){
     }
 }
 
-center(size, centerZ = false){
+align_center(size, centerZ = false){
     boxSize = [size[0], size[1], boxH];
     cube_hole(boxSize, wallWidth, center = false);
     translate([0, 0, boxH]){ 

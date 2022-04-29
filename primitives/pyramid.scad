@@ -1,3 +1,4 @@
+use <../math/align.scad>
 module pyramid3(size, heiht, center = false, r=0){
     // center = [size[0] / 2, size[1] / 2, size[2] / 2]
     // points = [[ 0, 0, 0], [size[0], 0, 0], [ 0, size[1], 0],
@@ -10,12 +11,8 @@ module pyramid3(size, heiht, center = false, r=0){
 }
 
 module pyramid4(sizes, center = false){
-    if (center){
+    align_uncenter(sizes, !center){
         _pyramid4(sizes);
-    } else {
-        translate([sizes[0]/2, sizes[1]/2, 0]){
-            _pyramid4(sizes);
-        }
     }
 }
 

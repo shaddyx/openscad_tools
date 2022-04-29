@@ -4,7 +4,7 @@ use <../math/align.scad>;
 
 module cooler_screw_holes(sizes, hole_d, height = h){
     r = hole_d / 2;
-    center(sizes){
+    align_center(sizes){
         translate([r, r, 0]){
             cylinder(sizes[2], r1 = r, r2 = r, center = false, $fn=poly_n);
         }
@@ -39,7 +39,7 @@ module standard_cooler_screw_holes(size){
 
 module standard_cooler_plate(size, h=3){
     difference(){
-        center(size){
+        align_center(size){
             cube([size, size, h]);
         }
         translate([0,0, -1]){
