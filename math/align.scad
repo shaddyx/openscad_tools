@@ -13,7 +13,7 @@ module align_center(sizes, center = true, centerZ = false){
 module align_uncenter(sizes, uncenter = true, uncenterZ = false){
     sizes = vSize(sizes);
     if (uncenter){
-        translate([sizes[0] / 2, sizes[1] / 2, (centerZ ? sizes[2]/2 : 0)]){
+        translate([sizes[0] / 2, sizes[1] / 2, (uncenterZ ? sizes[2]/2 : 0)]){
             children();
         }
     } else {
