@@ -48,15 +48,15 @@ module truncated_pyramid4(sizes, top_sizes, center = true){
         h = size[2];
         polyhedron(
         points=[ 
-            [size[0],size[1],0],
-            [size[0],-size[1],0],
-            [-size[0],-size[1],0],
-            [-size[0],size[1],0], // the four points at base
+            [size[0], size[1], 0],
+            [size[0], -size[1], 0],
+            [-size[0], -size[1], 0],
+            [-size[0], size[1], 0], // the four points at base
 
-            [top_size[0],top_size[1],h],
-            [top_size[0],-top_size[1],h],
-            [-top_size[0],-top_size[1],h],
-            [-top_size[0],top_size[1],h],
+            [top_size[0], top_size[1], h],
+            [top_size[0], -top_size[1], h],
+            [-top_size[0], -top_size[1], h],
+            [-top_size[0], top_size[1], h],
         ],                                 // the apex point 
         faces=[ 
             [0, 1, 2, 3],
