@@ -1,8 +1,12 @@
 use <../math/vect.scad>
 
-// bent_cube([10, 20], 90, 20);
-// rotate_to_bent_face(90, 20){
-//     cube([20, 20, 40]);
+// x = 10;
+// y = 40;
+// r = 30;
+// angle = 90;
+// bent_tube([x, y], [8, 28], angle, r);
+// rotate_to_bent_face(x, angle, r){
+//     cube([20, 40, 40]);
 // }
 
 
@@ -38,15 +42,19 @@ module bent_tube(size, size1, angle, r){
 }
 
 module rotate_to_bent_face(x, angle, r){
-    //translate([result[1] * 2, 0, 0])
-        //rotate([0, angle, 0])
-            translate([ -r - x, 0])
+    offset = r + x;
+    translate([offset, 0, 0])
+        rotate([0, angle, 0])
+            translate([ - offset, 0])
                 children();
 }
- 
-bent_tube([10, 30], [8, 28], 90, 40);
-rotate_to_bent_face(20, 90, 40){
-    cube([20, 20, 40]);
+x = 10;
+y = 40;
+r = 30;
+angle = 90;
+bent_tube([x, y], [8, 28], angle, r);
+rotate_to_bent_face(x, angle, r){
+    cube([20, 40, 40]);
 }
 
 // rotate_extrude(convexity = 10, angle = 90)

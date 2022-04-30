@@ -14,7 +14,7 @@ module pyramid3(size, heiht, center = false, r=0){
 //
 //
 
-module pyramid4(sizes){
+module pyramid4(sizes, center){
     align_uncenter(sizes, !center){
         size = [sizes[0] / 2 , sizes[1] / 2, sizes[2]];
         polyhedron(
