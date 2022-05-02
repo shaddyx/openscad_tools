@@ -5,6 +5,13 @@ use <../math/align.scad>;
 use <../coolers/cooler.scad>;
 use <../connectors/simple_rotating_connector.scad>;
 
+
+size = [30, 10, 30];
+wallWidth = 3;
+nozzle_angle = 50;
+nozzle_r = 20;
+pyramid_h = 30;
+
 module bent_nozzle(size, wallWidth){
     dx = 0.01;
 
@@ -42,11 +49,8 @@ module bent_nozzle(size, wallWidth){
         }
     }
 
-
-    standard_cooler_plate(40);
-
     align_center([size[1], size[0]])
-        simple_rotating_connector([size[1], size[0]], wallWidth, 50, 10, false)
+        simple_rotating_connector([size[1], size[0]], wallWidth, nozzle_angle, nozzle_r, false)
             translate([size[1], 0])
             rotate([0, 0, 90])
                 align_uncenter([size[0], size[1]])
@@ -54,8 +58,16 @@ module bent_nozzle(size, wallWidth){
         
 
 }
+standard_cooler_plate(40);
+translate([0,0, 3]){
+    difference(){
+        truncated_pyramid4([40, 40, pyramid_h], [size[1], size[0]], center = true);
+        translate([0, 0, -0.001])
+            truncated_pyramid4([40 - wallWidth, 40 - wallWidth, pyramid_h + 0.003], [size[1] - wallWidth, size[0] - wallWidth], center = true);
+    }
+    translate([0,0, pyramid_h])
+        bent_nozzle(size, wallWidth);
+}
 
-size = [30, 10, 30];
-wallWidth = 2;
-
-bent_nozzle(size, wallWidth);
+//truncated_pyramid4([40, 40, 30], [size[1], size[0]], center = true);
+//truncated_pyramid4([40 - wallWidth, 40 - wallWidth, 30], [size[1] - wallWidth, size[0] - wallWidth], center = true);

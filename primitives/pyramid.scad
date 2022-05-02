@@ -1,4 +1,5 @@
 use <../math/align.scad>
+use <../math/vect.scad>
 module pyramid3(size, heiht, center = false, r=0){
     // center = [size[0] / 2, size[1] / 2, size[2] / 2]
     // points = [[ 0, 0, 0], [size[0], 0, 0], [ 0, size[1], 0],
@@ -59,7 +60,7 @@ module truncated_pyramid4(sizes, top_sizes, center = true){
             [-top_size[0], top_size[1], h],
         ],                                 // the apex point 
         faces=[ 
-            [0, 1, 2, 3],
+            [3, 2, 1, 0],
             [0, 1, 5, 4],
             [1, 2, 6, 5],
             [2, 3, 7, 6],
@@ -69,4 +70,38 @@ module truncated_pyramid4(sizes, top_sizes, center = true){
     }
 }
 
-truncated_pyramid4([20, 20, 30], [5, 5], center = true);
+// truncated_pyramid4([20, 20, 30], [15, 5], center = true);
+
+
+module pyramid(angles, r, r1, h, center = true){
+    function _2d_dot(vect, angle) = vect_rotate2d(vect, angle);
+    function _dot(vect, angle, z) = vect_2d_to_3d(_2d_dot(vect, angle), z);
+    function _adapt_index(i, num) = 
+        i < 0 ? _adapt_index(num + i, num) :
+        i < num ? i : _adapt_index(i - num, num);
+    function _du(i, num) = _adapt_index(i, num) + num;
+    function _db(i, num) = _adapt_index(i, num);
+
+    vect = [r, 0];
+    vectU = [r1, 0];
+    angle = 360 / angles;
+    points = concat(
+        [for (i = [0: angles - 1]) _dot(vect, i * angle, 0)],
+        [for (i = [0: angles - 1]) _dot(vectU, i * angle, h)]
+    );
+
+    faces = concat(
+        [[for (i = [0: angles - 1]) _db(i, angles)]],
+        [[for (i = [0: angles - 1]) _du(angles - i, angles)]],
+        [for (i = [0: angles]) [
+            _db(i, angles),
+            _du(i, angles), 
+            _du(i + 1, angles), 
+            _db(i + 1, angles) 
+            ]
+        ]
+    );
+    polyhedron(points=points, faces=faces);
+}
+
+pyramid(4, 20, 10, 50);

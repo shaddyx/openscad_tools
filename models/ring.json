@@ -1,0 +1,30 @@
+{
+    "parameterSets": {
+        "design default values": {
+            "allow_bottom": "true",
+            "bottom_dot": "[10, 0]",
+            "bottom_z": "0",
+            "dx": "0.1",
+            "middle_dot": "[12, 0]",
+            "middle_z": "5",
+            "num": "7",
+            "upper_dot": "[12, 0]",
+            "upper_z": "10",
+            "wallWidth": "2"
+        },
+        "m": {
+            "allow_bottom": "true",
+            "bottom_dot": "[10, 0]",
+            "bottom_z": "0",
+            "dx": "0.1",
+            "middle_dot": "[12, 0]",
+            "middle_z": "5",
+            "num": "7",
+            "upper_dot": "[12, 0]",
+            "upper_z": "10",
+            "wallWidth": "2"
+        }
+    },
+    "fileFormatVersion": "1",
+    "parameterSets": ""
+}
