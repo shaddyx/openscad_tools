@@ -25,7 +25,7 @@ module pyramid4(sizes, center){
             [-size[0],-size[1],0],
             [-size[0],size[1],0], // the four points at base
             [0,0,size[2]]  
-        ],                                 // the apex point 
+        ],                                
         faces=[ 
             [0,1,4],
             [1,2,4],

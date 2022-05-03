@@ -11,6 +11,7 @@ wallWidth = 3;
 nozzle_angle = 50;
 nozzle_r = 20;
 pyramid_h = 30;
+nozzle_h_multiplier = 0.66;
 
 module bent_nozzle(size, wallWidth){
     dx = 0.01;
@@ -18,7 +19,7 @@ module bent_nozzle(size, wallWidth){
     boxH = size[2] * 1 / 3;
     nozzleFullH = (size[2] - boxH) * 2;
     nozzleSize = [size[0], size[1], nozzleFullH];
-    nozzleHeight = nozzleFullH / 2;
+    nozzleHeight = nozzleFullH * nozzle_h_multiplier;
 
     module nozzle(nozzleSize){
         difference(){

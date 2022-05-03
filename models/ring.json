@@ -1,17 +1,5 @@
 {
     "parameterSets": {
-        "design default values": {
-            "allow_bottom": "true",
-            "bottom_dot": "[10, 0]",
-            "bottom_z": "0",
-            "dx": "0.1",
-            "middle_dot": "[12, 0]",
-            "middle_z": "5",
-            "num": "7",
-            "upper_dot": "[12, 0]",
-            "upper_z": "10",
-            "wallWidth": "2"
-        },
         "m": {
             "allow_bottom": "true",
             "bottom_dot": "[10, 0]",
@@ -23,6 +11,30 @@
             "upper_dot": "[12, 0]",
             "upper_z": "10",
             "wallWidth": "2"
+        },
+        "ring_10": {
+            "allow_bottom": "true",
+            "boddom_dot_x": "8",
+            "bottom_z": "0",
+            "dx": "0.1",
+            "middle_dot_x": "10",
+            "middle_z": "5",
+            "num": "7",
+            "upper_dot_x": "10",
+            "upper_z": "10",
+            "wallWidth": "2"
+        },
+        "design default values": {
+            "allow_bottom": "true",
+            "boddom_dot_x": "6",
+            "bottom_z": "0",
+            "dx": "0.1",
+            "middle_dot_x": "7",
+            "middle_z": "5",
+            "num": "6",
+            "upper_dot_x": "7",
+            "upper_z": "10",
+            "wallWidth": "1"
         }
     },
     "fileFormatVersion": "1",

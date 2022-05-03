@@ -1,20 +1,25 @@
 use <../math/vect.scad>
+use <../primitives/pyramid.scad>
 
-num = 7;
-angle = 360 / num;
-upper_z = 10;
-middle_z = 5;
-bottom_z = 0;
+num = 7;    //[::non-negative integer]
+upper_z = 10.0; //[::float]
+middle_z = 5.0; //[::float]
+bottom_z = 0.0; //[::float]
+wallWidth = 2.0; //[::float]
+upper_dot_x = 20.0; //[::float]
+middle_dot_x = 22.2; //[::float]
+boddom_dot_x = 18.0; //[::float]
+
 dx = 0.1;
 allow_bottom = true;
-wallWidth = 2;
-upper_dot_x = 20;
-middle_dot_x = 22.2;
-boddom_dot_x = 18;
+
+angle = 360 / num;
 upper_dot = [upper_dot_x, 0];
 middle_dot = [middle_dot_x, 0];
 bottom_dot = [boddom_dot_x, 0];
 inner_dot = [upper_dot[0] - wallWidth, 0];
+inner_u = upper_dot_x - wallWidth;
+inner_b = boddom_dot_x - wallWidth;
 
 angle_offset = angle / 2;
 
@@ -68,11 +73,15 @@ module draw_solid(test = false){
 }
 
 module draw_inner(){
-    points = [for (i = [0: num]) 2d_dot(inner_dot, a(i))];
-    echo("points:", points, "len:", len(points));
-    translate([0, 0, allow_bottom ? wallWidth: -1])
-        linear_extrude(height = upper_z -bottom_z + 2)
-            polygon(points = points);
+    h = allow_bottom ? upper_z - bottom_z - wallWidth + dx: upper_z - bottom_z + dx * 2;
+    translate([0, 0, allow_bottom ? wallWidth : - dx])
+        pyramid(num, inner_b, inner_u, h, center = true);
+    // points = [for (i = [0: num]) 2d_dot(inner_dot, a(i))];
+    // echo("points:", points, "len:", len(points));
+    // translate([0, 0, allow_bottom ? wallWidth: -1])
+    //     linear_extrude(height = upper_z -bottom_z + 2)
+    //         polygon(points = points);
+
 }
 difference(){
     draw_solid();
