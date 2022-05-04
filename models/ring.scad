@@ -76,20 +76,8 @@ module draw_inner(){
     h = allow_bottom ? upper_z - bottom_z - wallWidth + dx: upper_z - bottom_z + dx * 2;
     translate([0, 0, allow_bottom ? wallWidth : - dx])
         pyramid(num, inner_b, inner_u, h, center = true);
-    // points = [for (i = [0: num]) 2d_dot(inner_dot, a(i))];
-    // echo("points:", points, "len:", len(points));
-    // translate([0, 0, allow_bottom ? wallWidth: -1])
-    //     linear_extrude(height = upper_z -bottom_z + 2)
-    //         polygon(points = points);
-
 }
 difference(){
     draw_solid();
     draw_inner();    
 }
-// module regular_polygon(order = 4, r=1){
-//      angles=[ for (i = [0:order-1]) i*(360/order) ];
-//      coords=[ for (th=angles) [r*cos(th), r*sin(th)] ];
-//      polygon(coords);
-//  }
-//  regular_polygon(r = 12, order = 8);
