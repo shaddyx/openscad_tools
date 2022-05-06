@@ -1,19 +1,5 @@
 use <../math/align.scad>
 use <../math/vect.scad>
-module pyramid3(size, heiht, center = false, r=0){
-    // center = [size[0] / 2, size[1] / 2, size[2] / 2]
-    // points = [[ 0, 0, 0], [size[0], 0, 0], [ 0, size[1], 0],
-    //       [ 0, 0, 0], [size[0], 0, 0], [ 0, size[1], 0],
-    //       [ 0, size[1], 0], [size[0], 0, 0], [ 0, 0, size[2]],
-    //       [ 0, 0, 0], [ 0, 0, size[2]], [size[0], 0, 0],
-    //       [ 0, 0, 0], [ 0, size[1], 0], [ 0, 0, size[2]]];
-    // faces = [[0,1,2], [3,4,5], [6,7,8], [9,10,11], [12,13,14]];
-    // polyhedron(points, faces);
-}
-
-//
-//
-//
 
 module pyramid4(sizes, center){
     align_uncenter(sizes, !center){
