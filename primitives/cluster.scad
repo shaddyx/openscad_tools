@@ -24,6 +24,10 @@ module check_cluster(size, oSize, rows = 2, cols = 2, rowOffset = 15, centered=f
         }
 }
 
-check_cluster([100, 100], [10, 10], 3, 3, centered = true){
-    cylinder(5, 5, 5);
+check_cluster([100, 100], [14, 14], 3, 3, centered = true){
+    cylinder(7, 7, 7);
+}
+
+check_cluster([100, 100], [10, 10], 3, 3, centered = false){
+    cube(10);
 }
