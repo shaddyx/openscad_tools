@@ -21,6 +21,21 @@ module align_uncenter(sizes, uncenter = true, uncenterZ = false){
     }   
 }
 
+module zz(z){
+    translate([0, 0, z])
+        children();
+}
+
+module xx(x){
+    translate([x, 0, 0])
+        children();
+}
+
+module yy(y){
+    translate([0, y, 0])
+        children();
+}
+
 
 // align_center(20){
 //     align_uncenter(20){
