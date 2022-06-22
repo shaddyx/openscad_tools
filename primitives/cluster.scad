@@ -43,13 +43,11 @@ module radial_cluster(size, r, r1, rows=2, cols=2){
 
 module radial_auto_cluster(size, r, r1, radial_min_spacing = 2, r_min_spacing = 2){
     function len(r) = 2 * PI * r;
-    function cols(r) = floor(len(r) / (size.x + radial_min_spacing) / 2);
+    function cols(r) = floor(len(r) / (size.x + radial_min_spacing));
     function rows(r) = floor(r / (size.y + r_min_spacing) / 2);
     
-    function radial_spacing(r) = len(r) / cols(r) - size.x;
+    //function radial_spacing(r) = len(r) / cols(r) - size.x;
     function r_spacing(r) = r / rows(r) - size.y;
-    echo ("Cols:", cols(r1));
-    echo ("Cols:", cols(r));
     rws = rows(r1 - r);
     r_spac =  r_spacing(r1 - r);
     for (i = [0: rws - 1]){
@@ -77,7 +75,7 @@ $fn = 100;
 // radial_cluster([7, 7], 50, 100, rows=3, cols=20)
 //     cylinder(7, 7, 7);
 
-radial_auto_cluster([10, 10], 0, 100, radial_min_spacing = 0, r_min_spacing = 0 ){
-    //cylinder(r=5, h=10);
-    square([7, 7]);
+radial_auto_cluster([10, 10], 0, 100, radial_min_spacing = 1, r_min_spacing = 1){
+    cylinder(r=5, h=10);
+    //square([7, 7]);
 }
