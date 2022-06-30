@@ -1,7 +1,9 @@
 use <../math/vect.scad>
-module regular_cluster(size, oSize, rows = 2, cols = 2, centered=false){
-    xSpacing = (size[0] - oSize[0]) / (cols - 1);
-    ySpacing = (size[1] - oSize[1]) / (rows - 1);
+module regular_cluster(size, oSize, rows = 2, cols = 2, centered=false, fit = true){
+    xCompensation = fit ? oSize.x : 0;
+    yCompensation = fit ? oSize.y : 0;
+    xSpacing = (size[0] - xCompensation) / (cols - 1);
+    ySpacing = (size[1] - yCompensation) / (rows - 1);
     xOffset = centered ? oSize[0] / 2: 0;
     yOffset = centered ? oSize[1] / 2: 0;
     for (i = [0: cols - 1])
@@ -59,6 +61,10 @@ module radial_auto_cluster(size, r, r1, radial_min_spacing = 2, r_min_spacing = 
     }
 }
 
+//translate([-7, -7])
+regular_cluster([100, 100], [14, 14], 3, 3, centered = false, fit = false){
+    cylinder(7, 7, 7);
+}
 
 
 // check_cluster([100, 100], [14, 14], 3, 3, centered = true){
@@ -75,7 +81,7 @@ $fn = 100;
 // radial_cluster([7, 7], 50, 100, rows=3, cols=20)
 //     cylinder(7, 7, 7);
 
-radial_auto_cluster([10, 10], 0, 100, radial_min_spacing = 1, r_min_spacing = 1){
-    cylinder(r=5, h=10);
-    //square([7, 7]);
-}
+// radial_auto_cluster([10, 10], 0, 100, radial_min_spacing = 1, r_min_spacing = 1){
+//     cylinder(r=5, h=10);
+//     //square([7, 7]);
+// }
