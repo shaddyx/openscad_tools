@@ -21,6 +21,16 @@ module align_uncenter(sizes, uncenter = true, uncenterZ = false){
     }   
 }
 
+module align_center_source_vs_target(target_sizes, source_sizes, centerZ = false){
+    align_uncenter(target_sizes, uncenterZ = centerZ)
+    union(){
+        align_center(target_sizes, center = true, centerZ = centerZ)
+            children(0);
+        align_center(source_sizes, center = true, centerZ = centerZ)
+            children(1);
+    }
+}
+
 module zz(z){
     translate([0, 0, z])
         children();
@@ -36,6 +46,10 @@ module yy(y){
         children();
 }
 
+// align_center_source_vs_target([100, 100, 1], [10, 10, 10], centerZ = false){
+//     cube([100,100,1]);
+//     cube([10,10,10]);
+// }
 
 // align_center(20){
 //     align_uncenter(20){
