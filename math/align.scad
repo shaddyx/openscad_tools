@@ -1,8 +1,11 @@
 use <vect.scad>
-module align_center(sizes, center = true, centerZ = false){
+module align_center(sizes, center = true, centerZ = false, vector=[1, 1, 0]){
+    xxx=vector.x;
+    yyy=vector.y;
+    zzz=centerZ || vector.z;
     sizes = vSize(sizes);
     if (center){
-        translate([-sizes[0] / 2, -sizes[1] / 2, (centerZ ? -sizes[2]/2 : 0)]){
+        translate([xxx ? -sizes[0] / 2 : 0, yyy ? -sizes[1] / 2: 0, zzz ? -sizes[2]/2 : 0]){
             children();
         }
     } else {
