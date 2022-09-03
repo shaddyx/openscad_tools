@@ -46,6 +46,19 @@ module yy(y){
         children();
 }
 
+module zc(){
+    translate([0, 0, -0.01])
+        children();
+}
+module xc(){
+    translate([-0.01, 0, 0])    
+        children();
+}
+module yc(){
+    translate([0, -0.01, 0])
+        children();
+}
+
 // align_center_source_vs_target([100, 100, 1], [10, 10, 10], centerZ = false){
 //     cube([100,100,1]);
 //     cube([10,10,10]);
