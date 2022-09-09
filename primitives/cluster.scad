@@ -1,4 +1,13 @@
 use <../math/vect.scad>
+module linear_2d_auto_cluster(width, oWidth, spacing){
+    fw = oWidth + spacing;
+    cols = floor(width / fw - 1);
+    lw = width - cols * fw;
+    for ( i = [0 : cols] ) {
+        translate([i * fw + lw / 2 - oWidth / 2, 0]) 
+            children();
+    }
+}
 module regular_cluster(size, oSize, rows = 2, cols = 2, centered=false, fit = true){
     xCompensation = fit ? oSize.x : 0;
     yCompensation = fit ? oSize.y : 0;
@@ -61,10 +70,13 @@ module radial_auto_cluster(size, r, r1, radial_min_spacing = 2, r_min_spacing = 
     }
 }
 
+// linear_2d_auto_cluster(140, 10, 5)
+//     cube([10, 10, 10]);
+
 //translate([-7, -7])
-regular_cluster([100, 100], [14, 14], 3, 3, centered = false, fit = false){
-    cylinder(7, 7, 7);
-}
+// regular_cluster([100, 100], [14, 14], 3, 3, centered = false, fit = false){
+//     cylinder(7, 7, 7);
+// }
 
 
 // check_cluster([100, 100], [14, 14], 3, 3, centered = true){

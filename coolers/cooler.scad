@@ -23,7 +23,8 @@ module cooler_screw_holes(sizes, hole_d, height = h){
 
 function _map_sizes(size) =
     (size == 40) ? [38, 38, 4]:
-    (size == 50) ? [48, 48, 4]: -1;
+    (size == 50) ? [48, 48, 4]: 
+    (size == 70) ? [60.7, 60.7, 4]: -1;
 
 module cooler_main_hole(r){
     cylinder(h, r / 2, r / 2, $fn=poly_n * 3);
