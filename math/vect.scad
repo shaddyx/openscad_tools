@@ -11,3 +11,11 @@ function vect_rotate2d(vect, b) = [
 ];
 
 function round_vect(v) = [for (i = [0: len(v) - 1]) round(v[i])];
+
+function vect_swap_xy(v1) = [v1.y, v1.x, v1.z];
+
+function vectorize_2(x) = is_list(x) ? [x.x, x.y] : [x, x];
+
+function vectorize_3(x) = is_list(x) ? [x.x, x.y, x.z] : [x, x, x];
+
+echo (vectorize_3(1));

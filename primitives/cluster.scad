@@ -8,16 +8,18 @@ module linear_2d_auto_cluster(width, oWidth, spacing){
             children();
     }
 }
-module regular_cluster(size, oSize, rows = 2, cols = 2, centered=false, fit = true){
+module regular_cluster(size, oSize, rows = 2, cols = 2, centered=false, fit = true, margin = 0){
+    margin = vectorize_2(margin);
+    fullSize = [size.x - margin.x * 2, size.y - margin.y * 2];
     xCompensation = fit ? oSize.x : 0;
     yCompensation = fit ? oSize.y : 0;
-    xSpacing = (size[0] - xCompensation) / (cols - 1);
-    ySpacing = (size[1] - yCompensation) / (rows - 1);
+    xSpacing = (fullSize[0] - xCompensation) / (cols - 1);
+    ySpacing = (fullSize[1] - yCompensation) / (rows - 1);
     xOffset = centered ? oSize[0] / 2: 0;
     yOffset = centered ? oSize[1] / 2: 0;
     for (i = [0: cols - 1])
         for (j = [0: rows - 1]){
-            translate([i * xSpacing + xOffset, j * ySpacing + yOffset, 0])
+            translate([margin.x + i * xSpacing + xOffset, margin.y + j * ySpacing + yOffset, 0])
                 children();
         }
 }
