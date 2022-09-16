@@ -4,7 +4,7 @@ use <../math/vect.scad>
 
 module _bar(barSize, barLedgeWidth, bottom=false){
     cube(barSize);
-    ledgeSize = [barSize.x, barSize.y, barSize.y+ barLedgeWidth];
+    ledgeSize = [barSize.x, barSize.y, barSize.y + barLedgeWidth];
     zz(barSize.z){
         if (bottom){
             yy(barSize.y + barLedgeWidth)
