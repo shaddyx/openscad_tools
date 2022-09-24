@@ -24,20 +24,34 @@ module align_uncenter(sizes, uncenter = true, uncenterZ = false){
     }   
 }
 
+ALIGN_LEFT=[1, 0, 0];
+ALIGN_RIGHT=[-1, 0, 0];
+ALIGN_BOTTOM=[0, 0, -1];
+ALIGN_TOP=[0, 0, 1];
+ALIGN_BACK=[0, -1, 0];
+ALIGN_FWD=[0, 1, 0];
+
+function _aligner(target, source, align) = 
+            align > 0 ? target * align:
+            align < 0 ? source * align:
+            (target - source) / 2;    
+
+function aligner(target_sizes, source_sizes, vector) = [
+    vector.x == undef ? 0 : _aligner(target_sizes.y, source_sizes.x, vector.x),
+    vector.y == undef ? 0 : _aligner(target_sizes.y, source_sizes.y, vector.y),
+    vector.z == undef ? 0 : _aligner(target_sizes.z, source_sizes.z, vector.z)
+];
+
 module align_relative(
     target_sizes, 
     source_sizes, 
     vector=[0,0,undef]
     ){
-    function _aligner(t, s, v) = 
-        v > 0 ? t * v:
-        v < 0 ? s * v:
-        (t - s) / 2;
-    
-    x = vector.x == undef ? 0 : _aligner(target_sizes.y, source_sizes.x, vector.x);
-    y = vector.y == undef ? 0 : _aligner(target_sizes.y, source_sizes.y, vector.y);
-    z = vector.z == undef ? 0 : _aligner(target_sizes.z, source_sizes.z, vector.z);
-    translate([x, y, z])
+        
+    // x = vector.x == undef ? 0 : _aligner(target_sizes.y, source_sizes.x, vector.x);
+    // y = vector.y == undef ? 0 : _aligner(target_sizes.y, source_sizes.y, vector.y);
+    // z = vector.z == undef ? 0 : _aligner(target_sizes.z, source_sizes.z, vector.z);
+    translate(aligner(target_sizes, source_sizes, vector))
         children();
 }
 
@@ -92,12 +106,12 @@ module yc(){
 //     }
 // }
 
-target_sizes = [20, 20, 20];
-source_sizes = [10, 10, 10];
-color("azure",0.25)
-    cube(size=target_sizes);
-align_relative(target_sizes=target_sizes, source_sizes=source_sizes, vector=[0, 0, undef]){
-    color("red",0.25)
-        zz(20)
-        cube(size=source_sizes);
-}
+// target_sizes = [20, 20, 20];
+// source_sizes = [10, 10, 10];
+// color("azure",0.25)
+//     cube(size=target_sizes);
+// align_relative(target_sizes=target_sizes, source_sizes=source_sizes, vector=[0, 0, undef]){
+//     color("red",0.25)
+//         zz(20)
+//         cube(size=source_sizes);
+// }
