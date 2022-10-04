@@ -1,5 +1,6 @@
 module multiHull(){
-	for (i = [1 : $children-1])
+	assert($children > 1, str("children count should be more than one, ", $children, " given"));
+    for (i = [1 : $children-1])
 		hull(){
 			children(0);
 			children(i);
@@ -7,9 +8,12 @@ module multiHull(){
 }
 
 module sequentialHull(){
-	for (i = [0: $children-2])
-		hull(){
-			children(i);
-			children(i+1);
-		}
+    assert($children > 1, str("children count should be more than one, ", $children, " given"));
+	for (i = [0: $children-1])
+    hull(){
+        if (i != undef && i > 0){
+            children(i);
+            children(i+1);
+        }
+    }
 }
