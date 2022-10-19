@@ -9,5 +9,21 @@ module screw_hole(d, h, chamferD = undef, chamferA = 30){
     cylinder(r2 = chamferD / 2, r1 = 0,  h = chamferH);
 }
 
+
+module four_screw_holes(size, d, chamferD = undef, chamferA = 30){
+    module _h(){
+        screw_hole(d = d, h = size.z, chamferD, chamferA);
+    }
+    xx(size.x)
+        _h();
+    yy(size.y)
+        _h();
+    yy(size.y)
+    xx(size.x)
+        _h();
+    _h();
+}
+
 $fn=100;
-screw_hole(3, 20);
+//screw_hole(3, 20);
+four_screw_holes([100, 100, 10], 10, 15);
