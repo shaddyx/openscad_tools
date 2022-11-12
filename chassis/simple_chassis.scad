@@ -9,8 +9,7 @@ module simple_chassis(
     indent,
     indent_h,
     indent_size_correction,
-    upperPart = true,
-    rotated = true
+    upperPart = true
 ){
     inner_indent_w = wallW - indent - indent_size_correction;
     outer_indent_w = indent + indent_size_correction;
