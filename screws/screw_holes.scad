@@ -1,6 +1,6 @@
 use <../math/align.scad>
 
-module screw_hole(d, h, chamferD = undef, chamferA = 30){
+module screw_hole(d, h, chamferD = undef, chamferA = 30, mirrorZ = false){
     chamferD = chamferD == undef ? d * 1.75: chamferD;
     chamferH = chamferD * tan(chamferA);
 
@@ -25,5 +25,5 @@ module four_screw_holes(size, d, chamferD = undef, chamferA = 30){
 }
 
 $fn=100;
-//screw_hole(3, 20);
-four_screw_holes([100, 100, 10], 10, 15);
+screw_hole(3, 5);
+//four_screw_holes([100, 100, 10], 10, 15);
