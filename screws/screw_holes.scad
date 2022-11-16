@@ -4,9 +4,18 @@ module screw_hole(d, h, chamferD = undef, chamferA = 30, mirrorZ = false){
     chamferD = chamferD == undef ? d * 1.75: chamferD;
     chamferH = chamferD * tan(chamferA);
 
-    cylinder(d = d, h = h);
-    zz(h - chamferH)
-    cylinder(r2 = chamferD / 2, r1 = 0,  h = chamferH);
+    module _m(){
+        cylinder(d = d, h = h);
+        zz(h - chamferH)
+        cylinder(r2 = chamferD / 2, r1 = 0,  h = chamferH);
+    }
+
+    if (mirrorZ){
+        translate([0, 0, h]) mirror([0, 0, 1]) 
+            _m();
+    } else {
+        _m();
+    }
 }
 
 
