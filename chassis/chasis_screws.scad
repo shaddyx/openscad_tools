@@ -7,17 +7,24 @@ module screw_stand(d, screwD, h, percentage=80){
     }
 }
 
-module align_screws(size, d, margin, only_two = true, percentage=80){
+module align_screws(size, d, margin, only_two = true, percentage=80, mirrorX = false){
     indent = d / 2 + margin;
-    translate(v = [indent, indent , 0])
-        children();
-    translate(v = [size.x - indent, size.y - indent , 0])
-        children();
-    if (!only_two){
-        translate(v = [indent, size.y - indent , 0])
+    module _m(){
+        translate(v = [indent, indent , 0])
             children();
-        translate(v = [size.x - indent, indent , 0])
+        translate(v = [size.x - indent, size.y - indent , 0])
             children();
+        if (!only_two){
+            translate(v = [indent, size.y - indent , 0])
+                children();
+            translate(v = [size.x - indent, indent , 0])
+                children();
+        }
+    }
+    if (mirrorX){
+        translate([size.x, 0, 0]) mirror([1,0,0]) _m() children();
+    } else {
+        _m() children();;
     }
 }
 

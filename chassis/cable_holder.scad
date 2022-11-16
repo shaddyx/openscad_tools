@@ -2,11 +2,18 @@ use <../primitives/arc.scad>
 use <../screws/screw_holes.scad>
 diameter_multiplier = 0.7;
 
-module simple_cable_holder_bottom(size, cableD, screwD){
+module simple_cable_holder_holes_align(size, cableD){
+    translate([(size.x - cableD) / 4, size.y / 2, -0.01]) 
+        children();
+    translate([size.x - (size.x - cableD) / 4, size.y / 2, -0.01]) 
+        children();
+}
+
+module simple_cable_holder_bottom(size, cableD, screwD, dMultiplier = diameter_multiplier){
     module _arc_cable_hole(){
         translate([-cableD/2, 0])
         rotate([-90, 0, 0])
-        color ("red") arc_3d(cableD, cableD / 2 * diameter_multiplier, size.y + 1);
+        color ("red") arc_3d(cableD, cableD / 2 * dMultiplier, size.y + 1);
     }
     module _m(){
         difference() {
@@ -26,11 +33,11 @@ module simple_cable_holder_bottom(size, cableD, screwD){
     }
 }
 
-module simple_cable_holder_top(size, cableD, screwD){
+module simple_cable_holder_top(size, cableD, screwD, dMultiplier = diameter_multiplier){
     module _arc_cable_hole(){
         translate([-cableD/2, 0])
         rotate([-90, 0, 0])
-        color ("red") arc_3d(cableD, cableD / 2 * diameter_multiplier, size.y + 1);
+        color ("red") arc_3d(cableD, cableD / 2 * dMultiplier, size.y + 1);
     }
     module _m(){
         difference() {
