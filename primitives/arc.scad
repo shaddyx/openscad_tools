@@ -12,7 +12,9 @@ module arc_2d(w, h){
             square([r*2 + 10, r * 2 + 10]);
     }
 }
-
+// x - arc width
+// y - arc height
+// h - arc extrude height
 module arc_3d(x, y, h){
     translate(v = [x / 2, 0]) 
     linear_extrude(height=h) 

@@ -82,6 +82,21 @@ module yy(y){
         children();
 }
 
+module rz(z){
+    rotate([0, 0, z])
+        children();
+}
+
+module rx(x){
+    rotate([x, 0, 0])
+        children();
+}
+
+module ry(y){
+    rotate([0, y, 0])
+        children();
+}
+
 module zc(){
     translate([0, 0, -0.01])
         children();
