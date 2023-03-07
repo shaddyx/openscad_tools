@@ -37,7 +37,7 @@ function _aligner(target, source, align) =
             (target - source) / 2;    
 
 function aligner(target_sizes, source_sizes, vector) = [
-    vector.x == undef ? 0 : _aligner(target_sizes.y, source_sizes.x, vector.x),
+    vector.x == undef ? 0 : _aligner(target_sizes.x, source_sizes.x, vector.x),
     vector.y == undef ? 0 : _aligner(target_sizes.y, source_sizes.y, vector.y),
     vector.z == undef ? 0 : _aligner(target_sizes.z, source_sizes.z, vector.z)
 ];
@@ -51,19 +51,15 @@ module align_relative(
     // x = vector.x == undef ? 0 : _aligner(target_sizes.y, source_sizes.x, vector.x);
     // y = vector.y == undef ? 0 : _aligner(target_sizes.y, source_sizes.y, vector.y);
     // z = vector.z == undef ? 0 : _aligner(target_sizes.z, source_sizes.z, vector.z);
-    translate(aligner(target_sizes, source_sizes, vector))
+    to_translate = aligner(target_sizes, source_sizes, vector);
+    echo(to_translate);
+    translate(to_translate)
         children();
 }
 
 module align_center_source_vs_target(target_sizes, source_sizes, centerZ = false){
-    align_relative(target_sizes=target_sizes, source_sizes=source_sizes, vector=[0, 0, centerZ ? 1 : 0]);
-    // align_uncenter(target_sizes, uncenterZ = centerZ)
-    // union(){
-    //     align_center(target_sizes, center = true, centerZ = centerZ)
-    //         children(0);
-    //     align_center(source_sizes, center = true, centerZ = centerZ)
-    //         children(1);
-    // }
+    align_relative(target_sizes=target_sizes, source_sizes=source_sizes, vector=[0, 0, centerZ ? 1 : 0])
+        children();
 }
 
 
