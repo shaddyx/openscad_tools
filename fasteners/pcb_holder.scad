@@ -19,7 +19,7 @@ module _bar(barSize, barLedgeWidth, bottom=false){
     
 }
 
-module pcb_holder(pcbSize, barSize, barLedgeWidth, barMargin = [7, 7], padding=[0.5, 0.5], sides = [1, 1, 1, 1]){
+module pcb_holder(pcbSize, barSize, barLedgeWidth, barMargin = [7, 7], padding=[0.5, 0.5], sides = [2, 2, 2, 2]){
 
     right = pcbSize.x - barSize.x - barMargin.x;
     left = barMargin.x;
@@ -30,45 +30,45 @@ module pcb_holder(pcbSize, barSize, barLedgeWidth, barMargin = [7, 7], padding=[
     vertBottom = barMargin.y + barSize.x;
     vertRight = pcbSize.x + padding.x;
 
-    if (sides[0]){
+    if (sides[0] > 0){
         translate([right, top])
             _bar(barSize, barLedgeWidth);
     }
     
-    if (sides[0]){
+    if (sides[0] > 1){
         translate([left, top])
             _bar(barSize, barLedgeWidth);
     }
 
-    if (sides[2]){
+    if (sides[2] > 0){
         translate([left, bottom])
             _bar(barSize, barLedgeWidth, true);
     }
 
-    if (sides[2]){
+    if (sides[2] > 1){
         translate([right, bottom])
             _bar(barSize, barLedgeWidth, true);
     }
 
-    if (sides[3]){
+    if (sides[3] > 0){
         translate([vertLeft, vertBottom])
             rotate([0, 0, -90]) 
             _bar(barSize, barLedgeWidth, true);
     }
 
-    if (sides[3]){
+    if (sides[3] > 1){
         translate([vertLeft, vertTop])
             rotate([0, 0, -90]) 
             _bar(barSize, barLedgeWidth, true);
     }
 
-    if (sides[1]){
+    if (sides[1] > 0){
         translate([vertRight, vertBottom])
             rotate([0, 0, -90]) 
             _bar(barSize, barLedgeWidth, false);
     }
 
-    if (sides[1]){
+    if (sides[1] > 1){
         translate([vertRight, vertTop])
             rotate([0, 0, -90]) 
             _bar(barSize, barLedgeWidth, false);
