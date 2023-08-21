@@ -5,7 +5,7 @@ use <../../math/align.scad>
 
 module main(){
     #chassis_bottom([100, 100, 2]);
-    chassis_top([100, 100, 2], 100, dead_right=false);
+    chassis_top([100, 100, 2], 100, dead_right=false, vent=true);
     xx(-2) chassis_side_lid([100, 100, 2], 100);
 }
 
