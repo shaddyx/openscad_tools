@@ -2,6 +2,7 @@ use <../../math/align.scad>
 use <../../screws/screw_holes.scad>
 use <fastening.scad>
 use <chassis_vent.scad>
+use <../../primitives/cluster.scad>
 
 module chassis_top(
 inner_sizes_with_bottom_height,
@@ -15,7 +16,9 @@ fastening_z_offset = 15,
 fastening_x_offset = 5,
 dead_left = false,
 dead_right = false,
-vent = false
+vent = false,
+top_vent = false,
+top_vent_hole_diameter = 10
 ) {
     module chassis_main() {
         module chassis_fastenings() {
@@ -86,6 +89,14 @@ vent = false
         if (vent) {
             front_vent_holes();
             yy(inner_sizes_with_bottom_height.y + wall_width) front_vent_holes();
+        }
+        if (top_vent){
+            zz(inner_height + wall_width) zc()
+            xx(top_vent_hole_diameter / 2) yy(top_vent_hole_diameter / 2)
+            linear_2d_auto_cluster(inner_sizes_with_bottom_height.y, top_vent_hole_diameter, 5)
+                rz(90) linear_2d_auto_cluster(inner_sizes_with_bottom_height.x, top_vent_hole_diameter, 5){
+                cylinder(h = wall_width + 1, d = top_vent_hole_diameter);
+            }
         }
     }
 
