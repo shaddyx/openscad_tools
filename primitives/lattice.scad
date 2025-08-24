@@ -68,7 +68,8 @@ module ortogonal_lattice(
 module circle_lattice(
     d = 100,
     cell_d = 10,
-    h = 10
+    h = 10,
+    m = 1
 ) {
     module mask(){
         difference() {
@@ -77,7 +78,7 @@ module circle_lattice(
         }
     }
     difference() {
-        translate([-d/2, -d/2, 0]) ortogonal_lattice(cell_d=cell_d, size=[d, d, h]);
+        translate([-d/2, -d/2, 0]) ortogonal_lattice(cell_d=cell_d, size=[d, d, h], m=m);
         translate([0, 0, -0.5]) mask();
     }
 }
