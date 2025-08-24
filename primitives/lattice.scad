@@ -65,5 +65,26 @@ module ortogonal_lattice(
     }
 }
 
-ortogonal_lattice(cell_d=10);
+module circle_lattice(
+    d = 100,
+    cell_d = 10,
+    h = 10
+) {
+    module mask(){
+        difference() {
+            cylinder(h = h + 1, r = d + cell_d);
+            cylinder(h = h + 1, r = d/2);
+        }
+    }
+    difference() {
+        translate([-d/2, -d/2, 0]) ortogonal_lattice(cell_d=cell_d, size=[d, d, h]);
+        translate([0, 0, -0.5]) mask();
+    }
+}
+
+
+circle_lattice();
+
+
+// ortogonal_lattice(cell_d=10);
 // ortogonal_lattice_cell(d=60);
