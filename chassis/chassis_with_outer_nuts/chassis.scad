@@ -92,8 +92,9 @@ module main(
 }
 
 $fn = 100;
-size = [80, 80, 35];
-main(size);
-translate(v = [size.x + 20, 0, 0]) main(type="lid");
+size = [105, 60, 35];
+wallWidth = 3;
+ main(size, wallWidth=wallWidth);
+translate(v = [size.x + 30, 0, 0]) main(size, type="lid", wallWidth=wallWidth);
 
 // cube_stand_profile(size = [10, 10, 5]);
