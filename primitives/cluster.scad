@@ -72,6 +72,31 @@ module radial_auto_cluster(size, r, r1, radial_min_spacing = 2, r_min_spacing = 
     }
 }
 
+
+module spacing_cluster(size, oSize, spacing){
+    // echo("spacing_cluster", size, oSize, spacing);
+    nx = size.x / (oSize.x + spacing);
+    ny = size.y / (oSize.y + spacing);
+
+    addX = size.x - (oSize.x + spacing) * floor(nx);
+    addY = size.y - (oSize.y + spacing) * floor(ny);
+
+    translate(v = [addX / 2+ oSize.x / 2 + spacing / 2, addY / 2 + oSize.y / 2 + spacing / 2, 0]) 
+    for (i = [0: floor(nx) - 1])
+        for (j = [0: floor(ny) - 1]){
+            translate([i * (oSize.x + spacing), j * (oSize.y + spacing), 0])
+                    children();
+        }
+    
+}
+
+size = [100, 60, 35];
+cylSize = [10, 10];
+cube(size = size);
+spacing_cluster(size = size, oSize = cylSize, spacing = 5){
+    cylinder(d = cylSize.x, h = size.z + 10);
+}
+
 // linear_2d_auto_cluster(140, 10, 5)
 //     cube([10, 10, 10]);
 

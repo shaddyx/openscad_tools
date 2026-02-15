@@ -1,4 +1,5 @@
 use <../../primitives/cluster.scad>
+use <../../math/align.scad>
 module cube_stand_profile(size){
     mirror([0, 1, 0]) rotate([0, 0, -90]){
         cube([size.x, size.y + 20, size.z]);
@@ -30,10 +31,14 @@ module center_box(
     wallWidth
     ){
     outerSize = [innerSize.x + wallWidth * 2, innerSize.y + wallWidth * 2, innerSize.z + wallWidth];
-    difference() {
-        cube(outerSize);
-        translate([wallWidth, wallWidth, wallWidth]) cube([innerSize.x, innerSize.y, innerSize.z + 0.01]);
+    module main_box(){
+        difference() {
+            cube(outerSize);
+            translate([wallWidth, wallWidth, wallWidth]) cube([innerSize.x, innerSize.y, innerSize.z + 0.01]);
+        }
     }
+    main_box();
+    
 }
 
 module main(
@@ -42,7 +47,11 @@ module main(
     wallWidth=2,
     screwD = 3.5,
     nutD = 4,
-    type = "case"
+    type = "case",
+    vents = false,
+    ventD = 10,
+    ventFn = 5,
+    ventsOffset = 20
 ){
     outerBoxSize = [innerSize.x + wallWidth * 2, innerSize.y + wallWidth * 2, innerSize.z + wallWidth];
     outerH = innerSize.z + wallWidth;
@@ -64,9 +73,18 @@ module main(
         rotate([0, 0, a]) children();
     }
 
-    if (type == "case"){
-        // stands
+    module draw_vents(){
+        xx(wallWidth) yy(wallWidth)
+            mirror([0, 1, 0]) yy(wallWidth + 5) rx(90) spacing_cluster([innerSize.x, innerSize.z], [ventD, ventD], spacing = ventsOffset){
+                $fn = ventFn;
+                echo("vent", ventD, ventFn);
+                cylinder(d=ventD, h=wallWidth * 2 + 10 + innerSize.y);
+            }
+    }
+
+    module stands(){
         difference() {
+            // stands
             color("green") {
                 translate(v = holesPositions[0]) stand(size = standSize, screwD = nutD);
                 translate(v = holesPositions[1]) r(90) stand(size = standSize, screwD = nutD);
@@ -75,10 +93,20 @@ module main(
             }
             translate([wallWidth, wallWidth, wallWidth]) cube([innerSize.x, innerSize.y, innerSize.z + 1]);
         }
-        
+    }
 
+    module case(){
+        stands();
         // box
         center_box(innerSize = innerSize, wallWidth = wallWidth);
+    }
+
+    if (type == "case"){
+        difference() {
+            case();
+            if (vents) draw_vents();
+        }
+        
     } else {
         cube(lidFoundationSize);
         color("green") {
@@ -92,9 +120,9 @@ module main(
 }
 
 $fn = 100;
-size = [105, 60, 35];
+innerSize = [105, 60, 35];
 wallWidth = 3;
- main(size, wallWidth=wallWidth);
-translate(v = [size.x + 30, 0, 0]) main(size, type="lid", wallWidth=wallWidth);
+ main(innerSize, wallWidth=wallWidth, vents=true, ventD=10, ventFn=7, ventsOffset=5);
+translate(v = [innerSize.x + 30, 0, 0]) main(innerSize, type="lid", wallWidth=wallWidth, vents=true, ventD=15, ventFn=6, ventsOffset=5);
 
 // cube_stand_profile(size = [10, 10, 5]);
