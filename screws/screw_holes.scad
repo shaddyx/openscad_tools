@@ -1,7 +1,7 @@
 use <../math/align.scad>
 
 module screw_hole(d, h, chamferD = undef, chamferA = 30, mirrorZ = false){
-    chamferD = chamferD == undef ? d * 1.75: chamferD;
+    chamferD = is_undef(chamferD) ? d * 1.75: chamferD;
     chamferH = chamferD * tan(chamferA);
 
     module _m(){
@@ -18,6 +18,24 @@ module screw_hole(d, h, chamferD = undef, chamferA = 30, mirrorZ = false){
     }
 }
 
+
+module screw_holes(size, d, positions=[1,1,1,1], chamferD = undef, chamferA = 30){
+    module _h(){
+        screw_hole(d = d, h = size.z, chamferD, chamferA);
+    }
+    if (positions[0])
+        xx(size.x)
+            _h();
+    if (positions[1])
+        yy(size.y)
+            _h();
+    if (positions[2])
+        yy(size.y)
+        xx(size.x)
+            _h();
+    if (positions[3])
+        _h();
+}
 
 module four_screw_holes(size, d, chamferD = undef, chamferA = 30){
     module _h(){
