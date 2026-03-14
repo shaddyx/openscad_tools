@@ -1,13 +1,15 @@
 use <../math/align.scad>
 
-module screw_hole(d, h, chamferD = undef, chamferA = 30, mirrorZ = false){
-    chamferD = is_undef(chamferD) ? d * 1.75: chamferD;
-    chamferH = chamferD * tan(chamferA);
+module screw_hole(d, h, chamferD=undef, chamferA = 30, mirrorZ = false){
+    assert (!is_undef(d), "Diameter should be defined for screw_hole");
+    assert (!is_undef(h), "Height should be defined for screw_hole");
+    eChamferD = is_undef(chamferD) ? d * 1.75: chamferD;
+    chamferH = eChamferD * tan(chamferA);
 
     module _m(){
         cylinder(d = d, h = h);
         zz(h - chamferH)
-        cylinder(r2 = chamferD / 2, r1 = 0,  h = chamferH);
+        cylinder(r2 = eChamferD / 2, r1 = 0,  h = chamferH);
     }
 
     if (mirrorZ){
@@ -38,8 +40,14 @@ module screw_holes(size, d, positions=[1,1,1,1], chamferD = undef, chamferA = 30
 }
 
 module four_screw_holes(size, d, chamferD = undef, chamferA = 30){
+    assert(!is_undef(size), "Size should be defined for four_screw_holes");
+    assert(!is_undef(d), "Diameter should be defined for four_screw_holes");
+    assert(!is_undef(chamferA), "Chamfer angle should be defined for four_screw_holes");
+    assert(!is_undef(size.z), "Height in sizes should be defined for four_screw_holes");
+    effectiveChamferD = is_undef(chamferD) ? d * 1.75: chamferD;
     module _h(){
-        screw_hole(d = d, h = size.z, chamferD, chamferA);
+        echo (str("Creating screw hole with d=", d, " h=", size.z, " chamferD=", effectiveChamferD, " chamferA=", chamferA));
+        screw_hole(d = d, h = size.z, effectiveChamferD, chamferA);
     }
     xx(size.x)
         _h();
